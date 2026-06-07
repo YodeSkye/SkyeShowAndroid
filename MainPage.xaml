@@ -8,13 +8,13 @@
         <VerticalStackLayout Padding="20">
 
             <Button Text="Play Test Video"
-            Clicked="PlayClicked" />
+                Clicked="OnPlayClicked" />
 
             <Grid HeightRequest="300" WidthRequest="300">
                 <media:MediaElement
-            x:Name="Player"
-            ShouldAutoPlay="False"
-            Aspect="AspectFit" />
+                    x:Name="Player"
+                    ShouldAutoPlay="False"
+                    Aspect="AspectFit" />
             </Grid>
 
         </VerticalStackLayout>
