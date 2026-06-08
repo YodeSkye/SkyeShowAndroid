@@ -12,13 +12,23 @@ namespace SkyeShowAndroid
 
         private async void OnPlayClicked(object? sender, EventArgs e)
         {
-            //string url = "/storage/emulated/0/Download/MarlingYoga 133.mp4";
-            string url = "/storage/emulated/0/Download/LiveMe SunnyGirl 20220419.mp4";
-            
+            System.Diagnostics.Debug.WriteLine("PLAY BUTTON CLICKED");
+
+            // Ask Jellyfin for a random video URL
+            var url = await JellyfinPlayer.GetRandomVideoUrlAsync();
+            if (url == null)
+                return;
+
+            System.Diagnostics.Debug.WriteLine("Jellyfin URL: " + url);
+
+            // Assign to your MediaElement
             Player.Source = MediaSource.FromUri(url);
+
+            // Give the player a moment to initialize
             await Task.Delay(50);
 
             Player.Play();
         }
+
     }
 }

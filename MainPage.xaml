@@ -5,18 +5,26 @@
     xmlns:media="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     x:Class="SkyeShowAndroid.MainPage">
 
-        <VerticalStackLayout Padding="20">
+    <VerticalStackLayout Padding="20" Spacing="20">
 
-            <Button Text="Play Test Video"
-                Clicked="OnPlayClicked" />
+        <Button Text="Play Test Video"
+            Clicked="OnPlayClicked" />
 
-            <Grid HeightRequest="300" WidthRequest="300">
-                <media:MediaElement
-                    x:Name="Player"
-                    ShouldAutoPlay="False"
-                    Aspect="AspectFit" />
-            </Grid>
+        <Border
+        StrokeThickness="0"
+        BackgroundColor="Black"
+        HeightRequest="300"
+        WidthRequest="300"
+        HorizontalOptions="Center"
+        VerticalOptions="Center">
 
-        </VerticalStackLayout>
+            <media:MediaElement
+            x:Name="Player"
+            ShouldAutoPlay="False"
+            Aspect="AspectFit" />
+
+        </Border>
+
+    </VerticalStackLayout>
 
 </ContentPage>
