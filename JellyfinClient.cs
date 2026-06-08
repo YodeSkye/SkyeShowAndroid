@@ -5,6 +5,15 @@ using System.Text.Json;
 
 namespace SkyeShowAndroid
 {
+    public class JellyfinItem
+    {
+        public string? Id { get; set; }
+    }
+    public class JellyfinItemsResponse
+    {
+        public List<JellyfinItem>? Items { get; set; }
+    }
+ 
     public static class JellyfinClient
     {
         private static readonly string Server = "http://10.0.0.212:8096";
@@ -45,15 +54,6 @@ namespace SkyeShowAndroid
                 return [];
             }
         }
-    }
-    public class JellyfinItemsResponse
-    {
-        public List<JellyfinItem>? Items { get; set; }
-    }
-
-    public class JellyfinItem
-    {
-        public string? Id { get; set; }
     }
     public static class JellyfinPlayer
     {

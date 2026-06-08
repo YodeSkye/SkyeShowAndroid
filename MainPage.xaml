@@ -12,7 +12,7 @@
 
         <Border
         StrokeThickness="0"
-        BackgroundColor="Black"
+        BackgroundColor="White"
         HeightRequest="300"
         WidthRequest="300"
         HorizontalOptions="Center"
@@ -21,7 +21,8 @@
             <media:MediaElement
             x:Name="Player"
             ShouldAutoPlay="False"
-            Aspect="AspectFit" />
+            Aspect="AspectFit"
+            BackgroundColor="White" />
 
         </Border>
 
