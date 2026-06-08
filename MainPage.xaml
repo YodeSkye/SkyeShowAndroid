@@ -7,9 +7,12 @@
 
     <VerticalStackLayout Padding="20" Spacing="20">
 
-        <Button Text="Play Test Video"
+        <Button Text="Play Random Video"
             Clicked="OnPlayClicked" />
 
+        <Button Text="Fullscreen"
+            Clicked="OnFullscreenClicked" />
+        
         <Border
         StrokeThickness="0"
         BackgroundColor="White"
@@ -25,6 +28,7 @@
             BackgroundColor="White" />
 
         </Border>
+
 
     </VerticalStackLayout>
 

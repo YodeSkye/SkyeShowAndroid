@@ -29,6 +29,17 @@ namespace SkyeShowAndroid
 
             Player.Play();
         }
+        private async void OnFullscreenClicked(object? sender, EventArgs e)
+        {
+            if (Player.Source is UriMediaSource uri && uri.Uri is not null)
+            {
+                // Pause the small player so Android can release the decoder
+                Player.Pause(); 
+                
+                string currentUrl = uri.Uri.ToString();
 
+                await Navigation.PushAsync(new FullscreenPage(currentUrl, JellyfinPlayer.GetRandomVideoUrlAsync));
+            }
+        }
     }
 }
