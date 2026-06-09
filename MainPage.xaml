@@ -3,32 +3,32 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:media="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-    x:Class="SkyeShowAndroid.MainPage">
+    x:Class="SkyeShowAndroid.MainPage"
+    NavigationPage.HasNavigationBar="False"
+    BackgroundColor="#FF2ED1">
 
     <VerticalStackLayout Padding="20" Spacing="20">
 
         <Button Text="Play Random Video"
-            Clicked="OnPlayClicked" />
+                Clicked="OnPlayClicked" />
 
         <Button Text="Fullscreen"
-            Clicked="OnFullscreenClicked" />
-        
+                Clicked="OnFullscreenClicked" />
+
         <Border
-        StrokeThickness="0"
-        BackgroundColor="White"
-        HeightRequest="300"
-        WidthRequest="300"
-        HorizontalOptions="Center"
-        VerticalOptions="Center">
+            StrokeThickness="0"
+            BackgroundColor="#FF2ED1"
+            HeightRequest="300"
+            WidthRequest="300"
+            HorizontalOptions="Center"
+            VerticalOptions="Center">
 
             <media:MediaElement
-            x:Name="Player"
-            ShouldAutoPlay="False"
-            Aspect="AspectFit"
-            BackgroundColor="White" />
-
+                x:Name="Player"
+                ShouldAutoPlay="False"
+                Aspect="AspectFit"
+                BackgroundColor="Transparent" />
         </Border>
-
 
     </VerticalStackLayout>
 
