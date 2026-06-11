@@ -69,7 +69,7 @@ namespace SkyeShowAndroid
             var randomId = ids[Random.Shared.Next(ids.Count)];
 
             // Build the direct stream URL
-            return $"{Server}/Videos/{randomId}/stream.mp4?container=mp4&videoCodec=h264&audioCodec=aac&api_key={ApiKey}";
+            return $"{Server}/Videos/{randomId}/stream.mp4?container=mp4&videoCodec=h264&audioCodec=aac&maxVideoBitrate=50000000&api_key={ApiKey}";
         }
     }
 }
