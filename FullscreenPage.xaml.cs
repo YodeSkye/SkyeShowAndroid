@@ -56,5 +56,14 @@ namespace SkyeShowAndroid
         {
             await Navigation.PopAsync();
         }
+        private async void OnSwipeNext(object sender, SwipedEventArgs e)
+        {
+            var next = await _getNextVideoAsync();
+            if (string.IsNullOrEmpty(next))
+                return;
+
+            Player.Source = MediaSource.FromUri(next);
+            Player.Play();
+        }
     }
 }

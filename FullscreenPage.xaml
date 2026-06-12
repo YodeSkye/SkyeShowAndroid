@@ -18,6 +18,7 @@
         <BoxView BackgroundColor="Transparent">
             <BoxView.GestureRecognizers>
                 <TapGestureRecognizer Tapped="OnExitTapped" />
+                <SwipeGestureRecognizer Direction="Right" Swiped="OnSwipeNext" />
             </BoxView.GestureRecognizers>
         </BoxView>
 
