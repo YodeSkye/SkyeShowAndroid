@@ -5,18 +5,20 @@
     xmlns:media="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     x:Class="SkyeShowAndroid.MainPage"
     NavigationPage.HasNavigationBar="False"
-    BackgroundColor="#FF2ED1">
+    BackgroundColor="{DynamicResource BackgroundColor}">
 
     <VerticalStackLayout Padding="20" Spacing="20">
 
         <Button Text="Play Random Video"
                 FontSize="20"
+                BackgroundColor="{DynamicResource ButtonBackgroundColor}"
+                TextColor="{DynamicResource ButtonTextColor}"
                 Clicked="OnPlayClicked"
                 HeightRequest="100" />
 
         <Border
-            StrokeThickness="0"
-            BackgroundColor="#FF2ED1"
+            StrokeThickness="0"           
+            BackgroundColor="{DynamicResource BackgroundColor}"
             HeightRequest="300"
             WidthRequest="300"
             HorizontalOptions="Center"
@@ -31,6 +33,8 @@
 
         <Button Text="FullScreen"
                 FontSize="20"
+                BackgroundColor="{DynamicResource ButtonBackgroundColor}"
+                TextColor="{DynamicResource ButtonTextColor}"
                 Clicked="OnFullscreenClicked"
                 HeightRequest="100" />
         

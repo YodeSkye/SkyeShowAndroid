@@ -1,6 +1,7 @@
 ﻿
-using Microsoft.Extensions.Logging;
 using CommunityToolkit.Maui;
+using Microsoft.Extensions.Logging;
+using SkyeShowAndroid.Services;
 
 namespace SkyeShowAndroid
 {
@@ -17,9 +18,9 @@ namespace SkyeShowAndroid
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
-
+            builder.Services.AddSingleton<ThemeService>();
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
             return builder.Build();
