@@ -56,7 +56,7 @@ namespace SkyeShowAndroid
         {
             await Navigation.PopAsync();
         }
-        private async void OnSwipeNext(object sender, SwipedEventArgs e)
+        private async void OnSwipeNext(object? sender, SwipedEventArgs e)
         {
             var next = await _getNextVideoAsync();
             if (string.IsNullOrEmpty(next))
