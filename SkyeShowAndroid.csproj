@@ -32,7 +32,23 @@
 
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">26.0</SupportedOSPlatformVersion>
 
-		<AssemblyTitle>Skye Show</AssemblyTitle>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net10.0-android|AnyCPU'">
+	  <AndroidKeyStore>True</AndroidKeyStore>
+	  <AndroidSigningKeyStore>C:\Users\YodeS\Documents\Keys\SkyeShowAndroid.keystore</AndroidSigningKeyStore>
+	  <AndroidSigningStorePass>QaGrt7dYPZNS</AndroidSigningStorePass>
+	  <AndroidSigningKeyAlias>skyeshowandroid</AndroidSigningKeyAlias>
+	  <AndroidSigningKeyPass>QaGrt7dYPZNS</AndroidSigningKeyPass>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net10.0-android|AnyCPU'">
+	  <AndroidPackageFormat>apk</AndroidPackageFormat>
+	  <AndroidKeyStore>True</AndroidKeyStore>
+	  <AndroidSigningKeyStore>C:\Users\YodeS\Documents\Keys\SkyeShowAndroid.keystore</AndroidSigningKeyStore>
+	  <AndroidSigningStorePass>QaGrt7dYPZNS</AndroidSigningStorePass>
+	  <AndroidSigningKeyAlias>skyeshowandroid</AndroidSigningKeyAlias>
+	  <AndroidSigningKeyPass>QaGrt7dYPZNS</AndroidSigningKeyPass>
 	</PropertyGroup>
 
 	<ItemGroup>
