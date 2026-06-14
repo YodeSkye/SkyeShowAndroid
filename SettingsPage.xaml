@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SkyeShowAndroid.SettingsPage"
+             Title="Settings"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="{DynamicResource BackgroundColor}">
+
+    <VerticalStackLayout Padding="20" Spacing="20">
+
+        <!-- Centered Title -->
+        <Label Text="Settings"
+               HorizontalOptions="Center"
+               FontSize="28"
+               FontAttributes="Bold"
+               TextColor="{DynamicResource TextColor}"
+               Margin="0,10,0,10" />
+
+        <!-- Theme section with tight spacing -->
+        <VerticalStackLayout Spacing="0">
+
+            <Label Text="Theme"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   TextDecorations="Underline"
+                   TextColor="{DynamicResource TextColor}" />
+
+            <Picker x:Name="ThemePicker"
+                    Title="Select Theme"
+                    BackgroundColor="{DynamicResource BackgroundColor}"
+                    TextColor="{DynamicResource TextColor}">
+                <Picker.Items>
+                    <x:String>System</x:String>
+                    <x:String>Light</x:String>
+                    <x:String>Dark</x:String>
+                    <x:String>Magenta</x:String>
+                </Picker.Items>
+            </Picker>
+
+        </VerticalStackLayout>
+
+    </VerticalStackLayout>
+</ContentPage>

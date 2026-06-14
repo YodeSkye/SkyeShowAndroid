@@ -7,37 +7,52 @@
     NavigationPage.HasNavigationBar="False"
     BackgroundColor="{DynamicResource BackgroundColor}">
 
-    <VerticalStackLayout Padding="20" Spacing="20">
+    <!-- GRID: Top content + bottom button -->
+    <Grid RowDefinitions="*,Auto" Padding="20">
 
-        <Button Text="Play Random Video"
+        <!-- MAIN CONTENT -->
+        <VerticalStackLayout Grid.Row="0" Spacing="20">
+
+            <Button Text="Play Random Video"
+                    FontSize="20"
+                    BackgroundColor="{DynamicResource ButtonBackgroundColor}"
+                    TextColor="{DynamicResource ButtonTextColor}"
+                    Clicked="OnPlayClicked"
+                    HeightRequest="100" />
+
+            <Border
+                StrokeThickness="0"
+                BackgroundColor="{DynamicResource BackgroundColor}"
+                HeightRequest="300"
+                WidthRequest="300"
+                HorizontalOptions="Center"
+                VerticalOptions="Center">
+
+                <media:MediaElement
+                    x:Name="Player"
+                    ShouldAutoPlay="False"
+                    Aspect="AspectFit"
+                    BackgroundColor="Transparent" />
+            </Border>
+
+            <Button Text="FullScreen"
+                    FontSize="20"
+                    BackgroundColor="{DynamicResource ButtonBackgroundColor}"
+                    TextColor="{DynamicResource ButtonTextColor}"
+                    Clicked="OnFullscreenClicked"
+                    HeightRequest="100" />
+
+        </VerticalStackLayout>
+
+        <!-- SETTINGS BUTTON AT THE BOTTOM -->
+        <Button Grid.Row="1"
+                Text="Settings"
                 FontSize="20"
                 BackgroundColor="{DynamicResource ButtonBackgroundColor}"
                 TextColor="{DynamicResource ButtonTextColor}"
-                Clicked="OnPlayClicked"
+                Clicked="OnSettingsClicked"
                 HeightRequest="100" />
 
-        <Border
-            StrokeThickness="0"           
-            BackgroundColor="{DynamicResource BackgroundColor}"
-            HeightRequest="300"
-            WidthRequest="300"
-            HorizontalOptions="Center"
-            VerticalOptions="Center">
-
-            <media:MediaElement
-                x:Name="Player"
-                ShouldAutoPlay="False"
-                Aspect="AspectFit"
-                BackgroundColor="Transparent" />
-        </Border>
-
-        <Button Text="FullScreen"
-                FontSize="20"
-                BackgroundColor="{DynamicResource ButtonBackgroundColor}"
-                TextColor="{DynamicResource ButtonTextColor}"
-                Clicked="OnFullscreenClicked"
-                HeightRequest="100" />
-        
-    </VerticalStackLayout>
+    </Grid>
 
 </ContentPage>

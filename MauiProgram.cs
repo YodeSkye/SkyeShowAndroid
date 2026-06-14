@@ -19,6 +19,7 @@ namespace SkyeShowAndroid
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
             builder.Services.AddSingleton<ThemeService>();
+            builder.Services.AddTransient<SettingsPage>();
 #if DEBUG
             builder.Logging.AddDebug();
 #endif

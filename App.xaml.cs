@@ -5,13 +5,18 @@ namespace SkyeShowAndroid
 {
     public partial class App : Application
     {
+        public static IServiceProvider Services { get; private set; } = default!;
         private readonly ThemeService _themeService;
 
-        public App(ThemeService themeService)
+        public App(IServiceProvider services, ThemeService themeService)
         {
             InitializeComponent();
 
+            Services = services;
             _themeService = themeService;
+
+            int saved = Preferences.Get("AppTheme", (int)SkyeTheme.Magenta);
+            _themeService.SetTheme((SkyeTheme)saved);
 
             // Apply theme at startup
             ApplyTheme(_themeService.CurrentTheme);
@@ -20,7 +25,7 @@ namespace SkyeShowAndroid
             _themeService.ThemeChanged += ApplyTheme;
 
             // Manually force a theme here:
-            _themeService.SetTheme(SkyeTheme.Magenta);
+            //_themeService.SetTheme(SkyeTheme.Magenta);
         }
 
         protected override Window CreateWindow(IActivationState? activationState)
@@ -28,7 +33,7 @@ namespace SkyeShowAndroid
             return new Window(new NavigationPage(new MainPage()));
         }
 
-        private void ApplyTheme(SkyeTheme theme)
+        public void ApplyTheme(SkyeTheme theme)
         {
             switch (theme)
             {

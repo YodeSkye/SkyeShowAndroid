@@ -1,5 +1,6 @@
 ﻿
 using CommunityToolkit.Maui.Views;
+using SkyeShowAndroid.Services;
 
 namespace SkyeShowAndroid
 {
@@ -40,6 +41,11 @@ namespace SkyeShowAndroid
 
                 await Navigation.PushAsync(new FullscreenPage(currentUrl, JellyfinPlayer.GetRandomVideoUrlAsync));
             }
+        }
+        private async void OnSettingsClicked(object? sender, EventArgs e)
+        {
+            var settingsPage = ServiceHelper.GetService<SettingsPage>();
+            await Navigation.PushAsync(settingsPage);
         }
     }
 }
