@@ -39,5 +39,70 @@
 
         </VerticalStackLayout>
 
+        <!-- ========================= -->
+        <!--  CONNECTION SETTINGS      -->
+        <!-- ========================= -->
+        <VerticalStackLayout Spacing="10">
+
+            <Label Text="Connection Settings"
+           FontSize="22"
+           FontAttributes="Bold"
+           TextDecorations="Underline"
+           TextColor="{DynamicResource TextColor}" />
+
+            <!-- IP Address -->
+            <VerticalStackLayout Spacing="4">
+                <Label Text="Server IP"
+               FontSize="18"
+               TextColor="{DynamicResource TextColor}" />
+                <Entry x:Name="IpEntry"
+               Placeholder="10.0.0.212"
+               TextColor="{DynamicResource TextColor}"
+               BackgroundColor="{DynamicResource BackgroundColor}" />
+            </VerticalStackLayout>
+
+            <!-- Port -->
+            <VerticalStackLayout Spacing="4">
+                <Label Text="Port"
+               FontSize="18"
+               TextColor="{DynamicResource TextColor}" />
+                <Entry x:Name="PortEntry"
+               Placeholder="8096"
+               Keyboard="Numeric"
+               TextColor="{DynamicResource TextColor}"
+               BackgroundColor="{DynamicResource BackgroundColor}" />
+            </VerticalStackLayout>
+
+            <!-- API Key -->
+            <VerticalStackLayout Spacing="4">
+                <Label Text="API Key"
+               FontSize="18"
+               TextColor="{DynamicResource TextColor}" />
+                <Entry x:Name="ApiKeyEntry"
+               Placeholder="your api key"
+               TextColor="{DynamicResource TextColor}"
+               BackgroundColor="{DynamicResource BackgroundColor}" />
+            </VerticalStackLayout>
+
+            <!-- User Picker -->
+            <VerticalStackLayout Spacing="4">
+                <Label Text="Jellyfin User"
+               FontSize="18"
+               TextColor="{DynamicResource TextColor}" />
+                <Picker x:Name="UserPicker"
+                Title="Select Jellyfin User"
+                TextColor="{DynamicResource TextColor}"
+                BackgroundColor="{DynamicResource BackgroundColor}" />
+            </VerticalStackLayout>
+
+            <!-- Save Button -->
+            <Button Text="Save Connection Settings"
+            FontSize="18"
+            BackgroundColor="{DynamicResource ButtonBackgroundColor}"
+            TextColor="{DynamicResource ButtonTextColor}"
+            Clicked="OnSaveConnectionClicked" />
+
+        </VerticalStackLayout>
+
     </VerticalStackLayout>
 </ContentPage>

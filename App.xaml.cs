@@ -23,9 +23,6 @@ namespace SkyeShowAndroid
 
             // Listen for theme changes
             _themeService.ThemeChanged += ApplyTheme;
-
-            // Manually force a theme here:
-            //_themeService.SetTheme(SkyeTheme.Magenta);
         }
 
         protected override Window CreateWindow(IActivationState? activationState)
