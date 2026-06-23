@@ -20,9 +20,6 @@ namespace SkyeShowAndroid
             _themeService.ThemeChanged += OnThemeChanged;
             ((App)Application.Current!).ApplyTheme(_themeService.CurrentTheme);
 
-            // LOAD USERS AFTER PAGE LOADS
-            //Loaded += async (_, __) => await LoadJellyfinUsersAsync();
-
             // SAVE SELECTED USER
             UserPicker.SelectedIndexChanged += async (s, e) =>
             {
@@ -30,9 +27,6 @@ namespace SkyeShowAndroid
                 {
                     Preferences.Set("JellyfinUserId", user.Id);
                     Preferences.Set("JellyfinUsername", user.Name);
-                    //// ⭐ THIS IS THE TEST YOU WANT ⭐
-                    //await DisplayAlertAsync("DEBUG STORED ID", Preferences.Get("JellyfinUserId", "NOT FOUND"), "OK");
-                    //await DisplayAlertAsync("DEBUG STORED UserName", Preferences.Get("JellyfinUsername", "NOT FOUND"), "OK");
                 }
             };
         }
@@ -44,8 +38,6 @@ namespace SkyeShowAndroid
             IpEntry.Text = Preferences.Get("ServerIP", "");
             PortEntry.Text = Preferences.Get("ServerPort", "");
             ApiKeyEntry.Text = Preferences.Get("JellyfinApiKey", "");
-            // Debug: prove they are NOT empty
-            //await DisplayAlertAsync("DEBUG", $"IP='{IpEntry.Text}' PORT='{PortEntry.Text}' API='{ApiKeyEntry.Text}'", "OK");
             await LoadJellyfinUsersAsync();
         }
 
@@ -56,18 +48,21 @@ namespace SkyeShowAndroid
             _themeService.SetTheme(selectedTheme);
             Preferences.Set("AppTheme", ThemePicker.SelectedIndex);
         }
-        private void OnSaveConnectionClicked(object? sender, EventArgs e)
+        private async void OnSaveConnectionClicked(object? sender, EventArgs e)
         {
             Preferences.Set("ServerIP", IpEntry.Text);
             Preferences.Set("ServerPort", PortEntry.Text);
             Preferences.Set("JellyfinApiKey", ApiKeyEntry.Text);
 
-            DisplayAlertAsync("Saved", "Connection settings updated.", "OK");
+            await DisplayAlertAsync("Saved", "Connection settings updated.", "OK");
+            await LoadJellyfinUsersAsync();
         }
+
         private void OnThemeChanged(SkyeTheme theme)
         {
             ((App)Application.Current!).ApplyTheme(theme);
         }
+       
         private async Task LoadJellyfinUsersAsync()
         {
 
@@ -86,9 +81,6 @@ namespace SkyeShowAndroid
 
                 using var client = new HttpClient();
                 var json = await client.GetStringAsync(url);
-
-                // ADD THIS
-                //await DisplayAlertAsync("DEBUG JSON", json, "OK");
 
                 List<JellyfinUser>? users = null;
 
@@ -113,6 +105,15 @@ namespace SkyeShowAndroid
                 // If STILL null, bail out
                 if (users == null || users.Count == 0)
                 {
+                    // Clear picker UI
+                    UserPicker.ItemsSource = null;
+                    UserPicker.SelectedItem = null;
+                    UserPicker.SelectedIndex = -1;
+
+                    // Clear saved user info
+                    Preferences.Remove("JellyfinUserId");
+                    Preferences.Remove("JellyfinUsername");
+
                     await DisplayAlertAsync("Error", "No users returned from Jellyfin.", "OK");
                     return;
                 }
@@ -131,6 +132,15 @@ namespace SkyeShowAndroid
             }
             catch (Exception ex)
             {
+                // Clear picker UI
+                UserPicker.ItemsSource = null;
+                UserPicker.SelectedItem = null;
+                UserPicker.SelectedIndex = -1;
+
+                // Clear saved user info
+                Preferences.Remove("JellyfinUserId");
+                Preferences.Remove("JellyfinUsername");
+
                 await DisplayAlertAsync("Error", $"Failed to load users: {ex.Message}", "OK");
             }
         }
@@ -140,5 +150,4 @@ namespace SkyeShowAndroid
         public string Name { get; set; } = "";
         public string Id { get; set; } = "";
     }
-
 }
