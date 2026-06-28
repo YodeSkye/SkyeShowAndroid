@@ -17,10 +17,35 @@
         <!-- Tap anywhere to exit fullscreen -->
         <BoxView BackgroundColor="Transparent">
             <BoxView.GestureRecognizers>
-                <TapGestureRecognizer Tapped="OnExitTapped" />
-                <SwipeGestureRecognizer Direction="Right" Swiped="OnSwipeNext" />
+
+                <!-- Single tap = show overlay -->
+                <TapGestureRecognizer
+                    NumberOfTapsRequired="1"
+                    Tapped="OnSingleTap" />
+
+                <!-- Double tap = exit fullscreen -->
+                <TapGestureRecognizer
+                    NumberOfTapsRequired="2"
+                    Tapped="OnDoubleTap" />
+
+                <!-- Swipe right = next video -->
+                <SwipeGestureRecognizer
+                    Direction="Right"
+                    Swiped="OnSwipeNext" />
+
             </BoxView.GestureRecognizers>
+
         </BoxView>
+
+        <Label x:Name="OverlayLabel"
+           TextColor="White"
+           BackgroundColor="#80000000"
+           Padding="10"
+           FontSize="14"
+           HorizontalOptions="Center"
+           VerticalOptions="End"
+           Margin="0,0,0,40"
+           IsVisible="False" />
 
     </Grid>
 

@@ -52,7 +52,27 @@ namespace SkyeShowAndroid
             Player.Source = MediaSource.FromUri(next);
             Player.Play();
         }
-        private async void OnExitTapped(object? sender, EventArgs e)
+        private async void OnSingleTap(object? sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(JellyfinPlayer.CurrentFullPath))
+                return;
+
+            string display = TextHelpers.TrimLeftToFit(
+                JellyfinPlayer.CurrentFullPath,
+                OverlayLabel
+            );
+
+            OverlayLabel.Text = display;
+            OverlayLabel.Opacity = 0;
+            OverlayLabel.IsVisible = true;
+
+            await OverlayLabel.FadeToAsync(1, 150);
+            await Task.Delay(5000);
+            await OverlayLabel.FadeToAsync(0, 150);
+
+            OverlayLabel.IsVisible = false;
+        }
+        private async void OnDoubleTap(object? sender, EventArgs e)
         {
             await Navigation.PopAsync();
         }
