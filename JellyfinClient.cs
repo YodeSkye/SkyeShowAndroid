@@ -32,51 +32,46 @@ namespace SkyeShowAndroid
         // ⬇️ NOW RETURNS FULL ITEMS, NOT JUST IDS
         public static async Task<List<JellyfinItem>> GetVideosAsync()
         {
-            // STEP 1: return cached list if we already fetched it
+            // Return cached list if available
             if (JellyfinPlayer._cachedVideos != null && JellyfinPlayer._cachedVideos.Count > 0)
                 return JellyfinPlayer._cachedVideos;
+
             try
             {
                 using var client = new HttpClient();
                 client.DefaultRequestHeaders.Add("X-Emby-Token", ApiKey);
 
-                //string url = $"{Server}/Users/{UserId}/Items?IncludeItemTypes=Video&Recursive=true";
                 string url = $"{Server}/Users/{UserId}/Items?IncludeItemTypes=Video&Recursive=true&Fields=Path,MediaSources";
 
                 var response = await client.GetAsync(url);
                 var json = await response.Content.ReadAsStringAsync();
 
-                //System.Diagnostics.Debug.WriteLine("JELLYFIN JSON:\n" + json);
+                var result = JsonSerializer.Deserialize<JellyfinItemsResponse>(json);
 
-                try
-                {
-                    var result = JsonSerializer.Deserialize<JellyfinItemsResponse>(json);
+                // ALWAYS assign a list, never null
+                JellyfinPlayer._cachedVideos = result?.Items ?? new List<JellyfinItem>();
 
-                    if (result?.Items == null)
-                        return [];
-
-                    JellyfinPlayer._cachedVideos = result.Items;
-                    return JellyfinPlayer._cachedVideos;
-                }
-                catch
-                {
-                    return [];
-                }
+                return JellyfinPlayer._cachedVideos;
             }
             catch (HttpRequestException ex)
             {
                 System.Diagnostics.Debug.WriteLine("NETWORK ERROR: " + ex.Message);
+
                 await MainThread.InvokeOnMainThreadAsync(() =>
                     Shell.Current.DisplayAlertAsync("Connection Error", "Could not reach the Jellyfin server. Check your IP and port.", "OK")
                 );
-                return [];
+
+                JellyfinPlayer._cachedVideos = new List<JellyfinItem>();
+                return JellyfinPlayer._cachedVideos;
             }
             catch (Exception ex)
             {
                 await MainThread.InvokeOnMainThreadAsync(() =>
                     Shell.Current.DisplayAlertAsync("General Error", ex.Message, "OK")
                 );
-                return [];
+
+                JellyfinPlayer._cachedVideos = new List<JellyfinItem>();
+                return JellyfinPlayer._cachedVideos;
             }
         }
     }
