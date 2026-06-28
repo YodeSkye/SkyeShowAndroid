@@ -46,7 +46,7 @@ namespace SkyeShowAndroid
                 var response = await client.GetAsync(url);
                 var json = await response.Content.ReadAsStringAsync();
 
-                System.Diagnostics.Debug.WriteLine("JELLYFIN JSON:\n" + json);
+                //System.Diagnostics.Debug.WriteLine("JELLYFIN JSON:\n" + json);
 
                 try
                 {
@@ -83,11 +83,10 @@ namespace SkyeShowAndroid
 
     public static class JellyfinPlayer
     {
-        public static List<JellyfinItem>? _cachedVideos;
-        // ⬇️ GLOBAL CURRENT PATH YOU CAN USE FOR LABELS/OVERLAY
+        internal static List<JellyfinItem>? _cachedVideos;
+        // GLOBAL CURRENT PATH YOU CAN USE FOR LABELS/OVERLAY
         public static string? CurrentFullPath { get; private set; }
-
-        // OPTIONAL: event so MainPage can react when video changes
+        // Event so MainPage can react when video changes
         public static event Action<string?>? VideoChanged;
 
         public static async Task<string?> GetRandomVideoUrlAsync()
