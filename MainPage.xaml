@@ -35,6 +35,15 @@
                     BackgroundColor="Transparent" />
             </Border>
 
+            <Label x:Name="NowPlayingLabel"
+               Text=""
+               TextColor="{DynamicResource TextColor}"
+               FontSize="10"
+               Margin="5,-10"
+               HorizontalOptions="Center"
+               VerticalOptions="Start"
+               IsVisible="True" />
+
             <Button Text="FullScreen"
                     FontSize="20"
                     BackgroundColor="{DynamicResource ButtonBackgroundColor}"

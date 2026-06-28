@@ -10,6 +10,32 @@ namespace SkyeShowAndroid
         {
             InitializeComponent();
         }
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            JellyfinPlayer.VideoChanged += OnVideoChanged;
+        }
+        protected override void OnDisappearing()
+        {
+            JellyfinPlayer.VideoChanged -= OnVideoChanged;
+            base.OnDisappearing();
+        }
+
+        private void OnVideoChanged(string? fullPath)
+        {
+            //DisplayAlertAsync("Video Changed", fullPath ?? "No video playing", "OK");
+            if (string.IsNullOrEmpty(fullPath))
+                return;
+
+            // Trim to fit the label width
+            var display = TextHelpers.TrimLeftToFit(fullPath, NowPlayingLabel);
+            //DisplayAlertAsync("Now Playing", display, "OK");
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                NowPlayingLabel.Text = display;
+                NowPlayingLabel.IsVisible = true;
+            });
+        }
 
         private async void OnPlayClicked(object? sender, EventArgs e)
         {
