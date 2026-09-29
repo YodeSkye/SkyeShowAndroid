@@ -13,12 +13,11 @@ namespace SkyeShowAndroid
             InitializeComponent();
 
             _getNextVideoAsync = getNextVideoAsync;
-            
             _initialUrl = initialUrl;
-           
-            Player.MediaEnded += Player_MediaEnded;
 
+            Player.MediaEnded += Player_MediaEnded;
         }
+
         protected override async void OnAppearing()
         {
             base.OnAppearing();
@@ -26,24 +25,30 @@ namespace SkyeShowAndroid
             FullscreenHelper.EnterImmersiveMode();
             DeviceDisplay.KeepScreenOn = true;
 
-            // Give Android time to create the SurfaceView
             await Task.Delay(150);
-
             Player.Source = MediaSource.FromUri(_initialUrl);
-
-            // Give MediaElement time to bind to the surface
             await Task.Delay(50);
-
             Player.Play();
         }
+
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
             FullscreenHelper.ExitImmersiveMode();
-            DeviceDisplay.KeepScreenOn = false;  // Allow sleep again
+            DeviceDisplay.KeepScreenOn = false;
         }
 
         private async void Player_MediaEnded(object? sender, EventArgs e)
+        {
+            await PlayNextVideoAsync();
+        }
+
+        private async void OnSwipeNext(object? sender, SwipedEventArgs e)
+        {
+            await PlayNextVideoAsync();
+        }
+
+        private async Task PlayNextVideoAsync()
         {
             var next = await _getNextVideoAsync();
             if (string.IsNullOrEmpty(next))
@@ -52,17 +57,34 @@ namespace SkyeShowAndroid
             Player.Source = MediaSource.FromUri(next);
             Player.Play();
         }
+
         private async void OnSingleTap(object? sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(JellyfinPlayer.CurrentFullPath))
                 return;
 
-            string display = TextHelpers.TrimLeftToFit(
+            // 1. Trim path for line 1
+            string displayPath = TextHelpers.TrimLeftToFit(
                 JellyfinPlayer.CurrentFullPath,
                 OverlayLabel
             );
 
-            OverlayLabel.Text = display;
+            // 2. Read reliable duration from Jellyfin API metadata (or MediaElement fallback)
+            TimeSpan total = (JellyfinPlayer.CurrentVideo?.Duration > TimeSpan.Zero)
+                ? JellyfinPlayer.CurrentVideo.Duration
+                : Player.Duration;
+
+            string totalStr = total.Hours > 0
+                ? total.ToString(@"hh\:mm\:ss")
+                : total.ToString(@"mm\:ss");
+
+            // 3. Format overlay string
+            string displayTime = total > TimeSpan.Zero ? $"({totalStr})" : string.Empty;
+            OverlayLabel.Text = string.IsNullOrEmpty(displayTime)
+                ? displayPath
+                : $"{displayPath}\n{displayTime}";
+
+            // 4. Animate overlay fade in and out
             OverlayLabel.Opacity = 0;
             OverlayLabel.IsVisible = true;
 
@@ -72,18 +94,10 @@ namespace SkyeShowAndroid
 
             OverlayLabel.IsVisible = false;
         }
+
         private async void OnDoubleTap(object? sender, EventArgs e)
         {
             await Navigation.PopAsync();
-        }
-        private async void OnSwipeNext(object? sender, SwipedEventArgs e)
-        {
-            var next = await _getNextVideoAsync();
-            if (string.IsNullOrEmpty(next))
-                return;
-
-            Player.Source = MediaSource.FromUri(next);
-            Player.Play();
         }
     }
 }

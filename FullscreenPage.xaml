@@ -44,6 +44,8 @@
            FontSize="14"
            HorizontalOptions="Center"
            VerticalOptions="End"
+           HorizontalTextAlignment="Center"
+           LineBreakMode="WordWrap"
            Margin="0,0,0,40"
            IsVisible="False" />
 

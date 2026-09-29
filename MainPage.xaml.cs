@@ -21,14 +21,14 @@ namespace SkyeShowAndroid
             base.OnDisappearing();
         }
 
-        private void OnVideoChanged(string? fullPath)
+        private void OnVideoChanged(JellyfinItem? item)
         {
             //DisplayAlertAsync("Video Changed", fullPath ?? "No video playing", "OK");
-            if (string.IsNullOrEmpty(fullPath))
+            if (item == null || string.IsNullOrEmpty(item.Path))
                 return;
 
             // Trim to fit the label width
-            var display = TextHelpers.TrimLeftToFit(fullPath, NowPlayingLabel);
+            var display = TextHelpers.TrimLeftToFit(item.Path, NowPlayingLabel);
             //DisplayAlertAsync("Now Playing", display, "OK");
             MainThread.BeginInvokeOnMainThread(() =>
             {
